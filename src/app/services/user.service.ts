@@ -10,7 +10,7 @@ export class UserService {
 
   constructor(private httpClient: HttpClient) {}
 
-  createUser(data: any) {
+  login(data: any) {
     return this.httpClient.post(this.url + '/api/users/login', data, {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
