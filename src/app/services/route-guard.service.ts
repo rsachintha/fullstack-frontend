@@ -25,7 +25,7 @@ export class RouteGuardService {
       this.router.navigate(['/']);
     }
 
-    if (tokenPayload.id.length == 24) {
+    if (tokenPayload.id) {
       if (this.auth.isAuthenticated()) {
         return true;
       }
