@@ -16,11 +16,11 @@ export class ItemsService {
     });
   }
 
-  // update(data: any) {
-  //   return this.httpClient.put(this.url + '/:id', data, {
-  //     headers: new HttpHeaders().set('Content-Type', 'application/json'),
-  //   });
-  // }
+  update(data: any) {
+    return this.httpClient.put(this.url + '/:id', data, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    });
+  }
 
   get() {
     return this.httpClient.get(this.url + '/api/items');

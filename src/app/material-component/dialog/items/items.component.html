@@ -1,1 +1,32 @@
-<p>items works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center">{{dialogData.action}} Item</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-dialog-content class="mat-typograghy">
+    <form [formGroup]="itemsForm">
+        <div fxFlex fxLayout="column">
+            <div fxLayout="row-wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Id</mat-label>
+                    <input matInput formControlName="ItemNo" required>
+                    <mat-error *ngIf="itemsForm.controls.ItemNo.touched && itemsForm.controls.ItemNo.invalid">
+                        <span *ngIf="itemsForm.controls.ItemNo.errors.required">This field is mandatory.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row-wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Item Name</mat-label>
+                    <input matInput formControlName="ItemName" required>
+                    <mat-error *ngIf="itemsForm.controls.ItemName.touched && itemsForm.controls.ItemName.invalid">
+                        <span *ngIf="itemsForm.controls.ItemName.errors.required">This field is mandatory.</span>
+                        <span *ngIf="itemsForm.controls.ItemName.errors.pattern">This field is invalid.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
