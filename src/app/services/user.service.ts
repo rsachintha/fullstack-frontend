@@ -15,4 +15,10 @@ export class UserService {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
   }
+
+  create(data: any) {
+    return this.httpClient.post(this.url + '/api/users/', data, {
+      headers: new HttpHeaders().set('Content-Type', 'application/json'),
+    });
+  }
 }

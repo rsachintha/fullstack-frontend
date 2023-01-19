@@ -9,6 +9,7 @@ export interface Menu {
 const MENUITEMS = [
   { state: 'dashboard', name: 'Dashboard', icon: 'dashboard' },
   { state: 'items', name: 'Manage Items', icon: 'inventory_2' },
+  { state: 'user', name: 'Create Users', icon: 'account_box' },
 ];
 
 @Injectable()
