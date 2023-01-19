@@ -17,7 +17,7 @@ export class ItemsService {
   }
 
   update(data: any) {
-    return this.httpClient.put(this.url + '/:id', data, {
+    return this.httpClient.put(this.url + '/api/items', data, {
       headers: new HttpHeaders().set('Content-Type', 'application/json'),
     });
   }

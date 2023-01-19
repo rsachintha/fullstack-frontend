@@ -27,6 +27,42 @@
                     </mat-error>
                 </mat-form-field>
             </div>
+
+            <div fxLayout="row-wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Item Description</mat-label>
+                    <input matInput formControlName="Description" required>
+                    <mat-error *ngIf="itemsForm.controls.Description.touched && itemsForm.controls.Description.invalid">
+                        <span *ngIf="itemsForm.controls.Description.errors.required">This field is mandatory.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row-wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Supplier</mat-label>
+                    <input matInput formControlName="Supplier" required>
+                    <mat-error *ngIf="itemsForm.controls.Supplier.touched && itemsForm.controls.Supplier.invalid">
+                        <span *ngIf="itemsForm.controls.Supplier.errors.required">This field is mandatory.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row-wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Quantity</mat-label>
+                    <input matInput formControlName="Quantity" required>
+                    <mat-error *ngIf="itemsForm.controls.Quantity.touched && itemsForm.controls.Quantity.invalid">
+                        <span *ngIf="itemsForm.controls.Quantity.errors.required">This field is mandatory.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
         </div>
     </form>
 </mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()"
+        [disabled]="!(itemsForm.valid && itemsForm.dirty)">{{action}}</button>
+    <button mat-raised-button color="primary" mat-dialog-close>Close</button>
+</mat-dialog-actions>

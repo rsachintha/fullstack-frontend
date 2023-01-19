@@ -86,7 +86,7 @@ export class ItemsComponent implements OnInit {
   edit() {
     var formData = this.itemsForm.value;
     var data = {
-      _id: this.dialogData.data.id,
+      _id: formData.ItemNo,
       itemName: formData.ItemName,
       itemDesc: formData.Description,
       supplier: formData.Supplier,
@@ -95,7 +95,7 @@ export class ItemsComponent implements OnInit {
     this.itemsService.update(data).subscribe(
       (response: any) => {
         this.dialogRef.close();
-        this.onAddItem.emit();
+        this.onEditItem.emit();
         this.responseMessage = response.message;
         this.snackbarService.openSnackBar(this.responseMessage, 'Success');
       },

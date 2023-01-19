@@ -37,10 +37,10 @@
             <td mat-cell *matCellDef="let element">{{element.quantity}}</td>
         </ng-container>
 
-        <ng-container matColumnDef="Action">
+        <ng-container matColumnDef="Edit">
             <th mat-header-cell *matHeaderCellDef>Action</th>
             <td mat-cell *matCellDef="let element" class="action-link">
-                <button mat-icon-button color="primary" matTooltip="Edit" (click)="handleEditAction(element)">
+                <button mat-icon-button color="primary" matTooltip="Edit" (click)="handleEditAction()">
                     <mat-icon>edit</mat-icon>
                 </button>
                 <button mat-icon-button color="primary" matTooltip="Delete" (click)="handleDeleteAction(element)">

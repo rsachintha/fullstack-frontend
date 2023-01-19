@@ -1,10 +1,13 @@
 import { Component, OnInit } from '@angular/core';
+import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import { NgxUiLoaderService } from 'ngx-ui-loader';
 import { ItemsService } from 'src/app/services/items.service';
 import { SnackbarService } from 'src/app/services/snackbar.service';
 import { GlobalConstants } from 'src/app/shared/global-constants';
+import { ConfirmationComponent } from '../dialog/confirmation/confirmation.component';
+import { ItemsComponent } from '../dialog/items/items.component';
 
 @Component({
   selector: 'app-manage-items',
@@ -18,13 +21,14 @@ export class ManageItemsComponent implements OnInit {
     'Description',
     'Supplier',
     'Quantity',
-    'Action',
+    'Edit',
   ];
   dataSource: any;
   responseMessage: any;
 
   constructor(
     private itemsService: ItemsService,
+    private diaog: MatDialog,
     private ngxService: NgxUiLoaderService,
     private snackbarService: SnackbarService,
     private router: Router
@@ -62,9 +66,72 @@ export class ManageItemsComponent implements OnInit {
     this.dataSource.filter = filterValue.trim().toLowerCase();
   }
 
-  handleAddAction() {}
+  handleAddAction() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      action: 'Add',
+    };
+    dialogConfig.width = '850px';
+    const dialogRef = this.diaog.open(ItemsComponent, dialogConfig);
+    this.router.events.subscribe(() => {
+      dialogRef.close();
+    });
+    const sub = dialogRef.componentInstance.onAddItem.subscribe((response) => {
+      this.tableData();
+    });
+  }
 
-  handleEditAction(values: any) {}
+  handleEditAction() {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      action: 'Edit',
+    };
+    dialogConfig.width = '850px';
+    const dialogRef = this.diaog.open(ItemsComponent, dialogConfig);
+    this.router.events.subscribe(() => {
+      dialogRef.close();
+    });
+    const sub = dialogRef.componentInstance.onEditItem.subscribe((response) => {
+      this.tableData();
+    });
+  }
 
-  handleDeleteAction(values: any) {}
+  handleDeleteAction(values: any) {
+    const dialogConfig = new MatDialogConfig();
+    dialogConfig.data = {
+      message: 'delete ' + values.itemName + ' item',
+    };
+    const dialogRef = this.diaog.open(ConfirmationComponent, dialogConfig);
+    const sub = dialogRef.componentInstance.onEmitStatusChange.subscribe(
+      (response) => {
+        this.ngxService.start();
+        this.deleteItem(values._id);
+        dialogRef.close();
+      }
+    );
+  }
+
+  deleteItem(id: any) {
+    this.itemsService.delete(id).subscribe(
+      (response: any) => {
+        this.ngxService.stop();
+        this.tableData();
+        this.responseMessage = response?.message;
+        this.snackbarService.openSnackBar(this.responseMessage, 'Success');
+      },
+      (error: any) => {
+        this.ngxService.stop();
+        console.log(error);
+        if (error.error?.message) {
+          this.responseMessage = error.error?.message;
+        } else {
+          this.responseMessage = GlobalConstants.genricError;
+        }
+        this.snackbarService.openSnackBar(
+          this.responseMessage,
+          GlobalConstants.error
+        );
+      }
+    );
+  }
 }
