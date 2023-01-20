@@ -1,1 +1,36 @@
-<p>user works!</p>
+<mat-toolbar color="primary">
+    <mat-toolbar-row fxLayout="row">
+        <span class="title-center">{{dialogData.action}} User</span>
+    </mat-toolbar-row>
+</mat-toolbar>
+<mat-dialog-content class="mat-typograghy">
+    <form [formGroup]="userForm">
+        <div fxFlex fxLayout="column">
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Username</mat-label>
+                    <input matInput formControlName="Username" required>
+                    <mat-error *ngIf="userForm.controls.Username.touched && userForm.controls.Username.invalid">
+                        <span *ngIf="userForm.controls.Username.errors.required">This field is mandatory.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+
+            <div fxLayout="row wrap">
+                <mat-form-field appearance="fill" fxFlex>
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="Password" required>
+                    <mat-error *ngIf="userForm.controls.Password.touched && userForm.controls.Password.invalid">
+                        <span *ngIf="userForm.controls.Password.errors.required">This field is mandatory.</span>
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="center">
+    <button mat-raised-button color="primary" type="submit" (click)="handleSubmit()"
+        [disabled]="!(userForm.valid && userForm.dirty)">{{action}}</button>
+    <button mat-raised-button color="primary" mat-dialog-close>Close</button>
+</mat-dialog-actions>

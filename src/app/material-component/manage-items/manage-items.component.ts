@@ -28,7 +28,7 @@ export class ManageItemsComponent implements OnInit {
 
   constructor(
     private itemsService: ItemsService,
-    private diaog: MatDialog,
+    private dialog: MatDialog,
     private ngxService: NgxUiLoaderService,
     private snackbarService: SnackbarService,
     private router: Router
@@ -72,7 +72,7 @@ export class ManageItemsComponent implements OnInit {
       action: 'Add',
     };
     dialogConfig.width = '850px';
-    const dialogRef = this.diaog.open(ItemsComponent, dialogConfig);
+    const dialogRef = this.dialog.open(ItemsComponent, dialogConfig);
     this.router.events.subscribe(() => {
       dialogRef.close();
     });
@@ -87,7 +87,7 @@ export class ManageItemsComponent implements OnInit {
       action: 'Edit',
     };
     dialogConfig.width = '850px';
-    const dialogRef = this.diaog.open(ItemsComponent, dialogConfig);
+    const dialogRef = this.dialog.open(ItemsComponent, dialogConfig);
     this.router.events.subscribe(() => {
       dialogRef.close();
     });
@@ -101,7 +101,7 @@ export class ManageItemsComponent implements OnInit {
     dialogConfig.data = {
       message: 'delete ' + values.itemName + ' item',
     };
-    const dialogRef = this.diaog.open(ConfirmationComponent, dialogConfig);
+    const dialogRef = this.dialog.open(ConfirmationComponent, dialogConfig);
     const sub = dialogRef.componentInstance.onEmitStatusChange.subscribe(
       (response) => {
         this.ngxService.start();
