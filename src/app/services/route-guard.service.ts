@@ -33,7 +33,7 @@ export class RouteGuardService {
         GlobalConstants.unautherized,
         GlobalConstants.error
       );
-      this.router.navigate(['/cafe/dashboard']);
+      this.router.navigate(['/ims/dashboard']);
       return false;
     } else {
       this.router.navigate(['/']);
